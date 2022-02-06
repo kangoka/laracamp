@@ -15,7 +15,7 @@ use Midtrans;
 
 class CheckoutController extends Controller
 {
-    public function _construct()
+    public function __construct()
     {
         Midtrans\Config::$serverKey = env('MIDTRANS_SERVERKEY');
         Midtrans\Config::$isProduction = env('MIDTRANS_IS_PRODUCTION');
@@ -68,6 +68,8 @@ class CheckoutController extends Controller
         $user->name = $data['name'];
         $user->email = $data['email'];
         $user->occupation = $data['occupation'];
+        $user->phone = $data['phone'];
+        $user->address = $data['address'];
         $user->save();
         
         // Create checkout
@@ -150,7 +152,7 @@ class CheckoutController extends Controller
             'gross_amount'      => $price
         ];
         
-        $item_details = [
+        $item_details[] = [
             'id'    => $orderId,
             'price' => $price,
             'quantity' => 1,
@@ -184,7 +186,7 @@ class CheckoutController extends Controller
 
         try {
             // Get Snap Payment URL
-            $paymentUrl = \Midtrans\Snap::createTransaction($params)->redirect_url;
+            $paymentUrl = \Midtrans\Snap::createTransaction($midtrans_params)->redirect_url;
             $checkout->midtrans_url = $paymentUrl;
             $checkout->save();
 

@@ -59,6 +59,13 @@
                                         <p class="text-danger">{{$errors->first('phone')}}</p>
                                     @endif
                                 </div>
+                                <div class="mb-4">
+                                    <label class="form-label">Address</label>
+                                    <input name="address" type="text" class="form-control {{$errors->has('address') ? 'is-invalid' : ''}}" value="{{ old('address') ? : Auth::user()->address }}" required>
+                                    @if ($errors->has('address'))
+                                        <p class="text-danger">{{$errors->first('address')}}</p>
+                                    @endif
+                                </div>
                                 <button type="submit" class="w-100 btn btn-primary">Pay Now</button>
                                 <p class="text-center subheader mt-4">
                                     <img src="{{asset('assets/images/ic_secure.svg')}}" alt=""> Your payment is secure and encrypted.
