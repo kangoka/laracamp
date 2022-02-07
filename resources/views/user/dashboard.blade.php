@@ -34,12 +34,13 @@
                             <strong>Rp. {{ $checkout->Camp->price }}K</strong>
                         </td>
                         <td>
-                            @if ($checkout->is_paid)
-                            <strong style="text-success">Paid</strong>
-                            @else
-                            <strong>Waiting for Payment</strong>
-                            @endif
+                            <strong>{{ ucfirst($checkout->payment_status) }}</strong>
                         </td>
+                        @if ($checkout->payment_status == 'waiting')
+                            <td>
+                                <a href="{{ $checkout->midtrans_url }}" class="btn btn-primary">Pay Now</a>
+                            </td>
+                        @endif
                         <td>
                             <a href="https://wa.me/6282325215342?text=Halo, saya ingin bertanya mengenai kelas {{ $checkout->Camp->title }}" class="btn btn-primary">
                                 Contact Support
